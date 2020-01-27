@@ -49,7 +49,7 @@ body {
     min-height: 200px;
     max-height: 300px;
     background: url(./images/keyboard.jpeg) no-repeat center center;
-    background-size: cover;
+    background-size: contain;
     margin-top: 10px;
 }
 
@@ -65,7 +65,7 @@ body {
     background: rgba(236,34, 202, .9);
 }
 
-.scoreDown, .scoreUp {
+/* .scoreDown, .scoreUp {
    border-radius: 5px;
    padding: 5px;
    font-size: 12px;
@@ -78,4 +78,4 @@ body {
 .scoreUp {
    background: rgb(0, 255, 179);
    color: black;
-}
+} */
