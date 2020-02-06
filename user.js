@@ -1,4 +1,4 @@
-const user = (() => {
+const userModule = (() => {
     const domElements = {
         // indicators - test control
         timeLeft, //HTML element displaying time left

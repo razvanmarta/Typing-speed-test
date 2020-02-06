@@ -1,5 +1,46 @@
 const data = (() => {
     // private
+
+    //  shuffle function
+
+    const shuffle = (array) => {
+        let newArray = [];
+        let randomIndex;
+        let randomElement;
+        while (array.length > 0) {
+            // take a random element from array and add it to newArray
+            let randomIndex = Math.floor(Math.random() * array.length);
+            let randomElement = array[randomIndex];
+            newArray.push(randomElement);
+            // delete randomElement from array
+            array.splice(randomIndex, 1);
+        }
+        return newArray;
+    };
+
+    // capitalize first letter of a string
+
+    String.prototype.capitalize = function () {
+        let newString = "";
+        let firstCharacterCapitalize = this.charAt(0).toUpperCase();
+        let remainingChar = this.slice(1);
+        newString = firstCharacterCapitalize + remainingChar;
+        return newString;
+    };
+
+    // capitalizeRandom function
+
+    const capitalizeRandom = function (arrayOfStrings) {
+        return arrayOfStrings.map(function (currentWord) {
+            let x = Math.floor(4 * Math.random()); //chances of x equal to 3: 25%;
+            return (x === 3) ? currentWord.capitalize() : currentWord;
+        })
+    };
+
+
+    // addRandomPunctuation function
+
+
     const appData = {
         indicators: {
             testStarted: false,
@@ -65,7 +106,21 @@ const data = (() => {
         calculateAccuracy: () => { }, //calculates accuracy and accuracyChange and updates them in appData
 
         // test words
-        fillListOfTestWords: (textNumber) => { }, //fills words, testWords
+
+        //fills words, testWords
+        fillListOfTestWords: (textNumber, words) => {
+            const result = words.split(" ");
+
+            if (textNumber === 0) {
+                // shuffle words
+
+                // capitalize random strings
+
+                // add a random punctuation
+
+            }
+            appData.words.testWords = result;
+        },
         getListOfTestWords: () => { }, //get list of test words  words.testWords
         moveToNewWord: () => { }, // update current word by creating a new instance of the word class
         updateCurrentWord: () => { } //update current word using user input
