@@ -1,20 +1,22 @@
-const eventsModule = ((dt, us, ctf, wds) => {
+const eventsModule = ((dataM, userM, certificateM, wordsM) => {
     const addEventListeners = function () {
         // private
         // character typing event listener
         // click on download button event listener
         // click on restart button event listener
-
-        // public
+    };
+    // public
+    return {
         // init function, initializes the test before start
         init: (duration, textNumber) => {
             // fill the list of test words: data
-            let words = wds.getWords(textNumber)
-            dt.fillListOfTestWords(textNumber, words);
-
-
+            let word = wordsM.getWords(textNumber);
+            dataM.fillListOfTestWords(textNumber, word);
 
             // fill the list of words: user
+            let lineReturn = dataM.getLineReturn();
+            const testWords = dataM.getListOfTestWords();
+            userM.fillContent(testWords, lineReturn);
 
 
             // set te total test time
@@ -39,6 +41,6 @@ const eventsModule = ((dt, us, ctf, wds) => {
             // add event listener
             addEventListeners();
         }
-    }
-}
-)(data, userModule, certificate, wordsModule);
+    };
+
+})(dataModule, UIModule, certificateModule, wordsModule);

@@ -1,5 +1,7 @@
-const data = (() => {
+const dataModule = (() => {
     // private
+
+    const lineReturn = "|";
 
     //  shuffle function
 
@@ -40,6 +42,21 @@ const data = (() => {
 
     // addRandomPunctuation function
 
+    const addRandomPunctuation = function (arrayOfStrings) {
+        return arrayOfStrings.map(
+            function (currentWord) {
+                let randomPunctuation;
+                const punctuation = [lineReturn, "?", "!", "!", ",", ".", ".", ".", ".", ".", " ", " ", " ", " ", " ", " ", " "];
+                let index = Math.floor(Math.random() * punctuation.length);
+                randomPunctuation = punctuation[index];
+
+                return currentWord + randomPunctuation;
+            }
+        )
+    }
+
+
+
 
     const appData = {
         indicators: {
@@ -78,10 +95,6 @@ const data = (() => {
         }
     };
 
-
-    //const word = function () { } //class word constructor 
-    //word.prototype.update = function (value) { } // update method
-
     class Word {
         constructor(index) { }
         update(value) { }// update method
@@ -108,22 +121,39 @@ const data = (() => {
         // test words
 
         //fills words, testWords
-        fillListOfTestWords: (textNumber, words) => {
-            const result = words.split(" ");
+        fillListOfTestWords: function (textNumber, words) {
+            let result = words.split(" ");
 
             if (textNumber === 0) {
                 // shuffle words
-
+                result = shuffle(result);
                 // capitalize random strings
-
+                result = capitalizeRandom(result);
                 // add a random punctuation
-
+                result = addRandomPunctuation(result)
             }
             appData.words.testWords = result;
         },
-        getListOfTestWords: () => { }, //get list of test words  words.testWords
+        //get list of test words  words.testWords
+        getListOfTestWords: () => {
+            return appData.words.testWords
+        },
         moveToNewWord: () => { }, // update current word by creating a new instance of the word class
-        updateCurrentWord: () => { } //update current word using user input
+        updateCurrentWord: () => { }, //update current word using user input
+        getLineReturn() {
+            return lineReturn;
+        },
+        // only for test
+        returnData() {
+            console.log(appData);
+        }
     }
-
 })();
+
+
+
+
+
+
+
+

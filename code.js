@@ -1,1 +1,3 @@
-// eventsModule.init(60, 1);
+console.log("start");
+eventsModule.init(30, 1);
+dataModule.returnData();
