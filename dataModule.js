@@ -102,15 +102,23 @@ const dataModule = (() => {
 
     //public
     return {
-        setTestTime: (x) => { }, //set the total test time to x
-        initializeTimeLeft: () => { }, //initializes time left to the total test
+        //set the total test time to x
+        setTestTime: (x) => {
+            appData.indicators.totalTestTime = x;
+        },
+        //initializes time left to the total test
+        initializeTimeLeft: () => {
+            appData.indicators.timeLeft = appData.indicators.totalTestTime;
+        },
         startTest: () => { }, //start the test
         endTest: () => { }, //ends the test
         reduceTime: () => { },// reduces time by one sec
         timeLeft: () => { },//checks if there is time left to continue the test
         testEnded: () => { },//check if the test has already ended
         testStarted: () => { },//check if the test has started
-        getTimeLeft: () => { },
+        getTimeLeft: () => {
+            return appData.indicators.timeLeft;
+        },
 
         // results
 
@@ -136,7 +144,7 @@ const dataModule = (() => {
         },
         //get list of test words  words.testWords
         getListOfTestWords: () => {
-            return appData.words.testWords
+            return appData.words.testWords;
         },
         moveToNewWord: () => { }, // update current word by creating a new instance of the word class
         updateCurrentWord: () => { }, //update current word using user input

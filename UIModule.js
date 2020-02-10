@@ -49,7 +49,10 @@ const UIModule = (() => {
         // get DOM Elements
         getDOMElements: () => { },
         //indicators - test control
-        updateTimeLeft: () => { },
+        updateTimeLeft: (x) => {
+            DOMElements.timeLeft.innerHTML = x;
+
+        },
         //results
         updateResults: () => { },
         fillModal: () => { },
@@ -76,10 +79,16 @@ const UIModule = (() => {
             //[['<span>','<span>w</span>', '<span>o</span>', '<span>r</span>', '<span>d</span>', '<span>1</span>', '<span>,</span>', '<span> </span>', '</span>'], ['<span>','<span>w</span>', '<span>o</span>', '<span>r</span>', '<span>d</span>', '<span>1</span>', '<span> </span>', '</span>']]
             content = content.map(joinEachWord);
             content = content.join('');
-            console.log(content);
+            // console.log(content);
             // <span><span>w</span><span>o</span><span>r</span><span>d</span><span>1</span><span>,</span><span> </span></span><span><span>w</span><span>o</span><span>r</span><span>d</span><span>2</span><span> </span></span>;
 
-            // replace line return special code "|" with HTML entity (line return);
+            //replace the line return special code with the HTML entity (line return)
+
+            // <span>|</span>
+            // <span>&crarr;</span>
+            //            content = content.replace('<span>|</span>', '<span>&crarr;</span>');
+            //split, join
+            content = content.split('<span>' + lineReturn + '</span>').join('<span>&crarr;</span>');
 
             // fill content
 

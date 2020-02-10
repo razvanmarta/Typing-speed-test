@@ -13,19 +13,22 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
             let word = wordsM.getWords(textNumber);
             dataM.fillListOfTestWords(textNumber, word);
 
-            // fill the list of words: user
+            // fill the list of words: UIModule
             let lineReturn = dataM.getLineReturn();
             const testWords = dataM.getListOfTestWords();
             userM.fillContent(testWords, lineReturn);
 
 
-            // set te total test time
+            // set te total test time:data Module
+            dataM.setTestTime(duration);
 
-
-            // update time left: data
-
+            // update time left: data Module
+            dataM.initializeTimeLeft();
 
             // update time left: user
+            let timeLeft = dataM.getTimeLeft();
+            UIModule.updateTimeLeft(timeLeft);
+
 
 
             // move to a new word: data
