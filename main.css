@@ -83,3 +83,8 @@ body {
 .modal {
     color: black;
 }
+
+.activeWord{
+background-color: aqua;
+border-radius: 5px;
+}

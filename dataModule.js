@@ -77,7 +77,7 @@ const dataModule = (() => {
             numOfTestCharacters: 0
         },
         words: {
-            currentWordIndex: 0,
+            currentWordIndex: -1,
             testWords: [],
             currentWord: {
                 value: {
@@ -96,7 +96,21 @@ const dataModule = (() => {
     };
 
     class Word {
-        constructor(index) { }
+        constructor(index) {
+            //  word values: correct vs user's
+            this.value = {
+                correct: appData.words.testWords[index] + " ",
+                user: '',
+                isCorrect: false
+            },
+                // characters : correct vs user's value 
+                this.characters = {
+                    correct: this.value.correct.split(''),
+                    user: [],
+                    totalCorrect: 0,
+                    totalTest: this.value.correct.length
+                };
+        }
         update(value) { }// update method
     }
 
@@ -106,6 +120,7 @@ const dataModule = (() => {
         setTestTime: (x) => {
             appData.indicators.totalTestTime = x;
         },
+
         //initializes time left to the total test
         initializeTimeLeft: () => {
             appData.indicators.timeLeft = appData.indicators.totalTestTime;
@@ -126,12 +141,11 @@ const dataModule = (() => {
         calculateCpm: () => { }, //calculates cpm and cpmChange and updates them in appData 
         calculateAccuracy: () => { }, //calculates accuracy and accuracyChange and updates them in appData
 
-        // test words
+        // TEST WORDS
 
         //fills words, testWords
         fillListOfTestWords: function (textNumber, words) {
             let result = words.split(" ");
-
             if (textNumber === 0) {
                 // shuffle words
                 result = shuffle(result);
@@ -142,15 +156,53 @@ const dataModule = (() => {
             }
             appData.words.testWords = result;
         },
+
         //get list of test words  words.testWords
         getListOfTestWords: () => {
             return appData.words.testWords;
         },
-        moveToNewWord: () => { }, // update current word by creating a new instance of the word class
-        updateCurrentWord: () => { }, //update current word using user input
+
+        // increment the currentWordIndex
+        // update current word by creating a new instance of the word class
+        // update the current word (appData.words.currentWord) by creating a new instance of the WORD class
+        // update numOfCorrectWords, numOfCorrectCharacter and numOfTestCharacters
+        moveToNewWord: () => {
+            if (appData.words.currentWordIndex > -1) {
+                //update the number of correct words 
+
+                //update the number of correct characters
+
+                // update number of test characters
+            }
+            appData.words.currentWordIndex++;
+            const currentIndex = appData.words.currentWordIndex;
+            const newWord = new Word(currentIndex);
+            appData.words.currentWord = newWord;
+        },
+
+        // get the current word index
+        getCurrentWordIndex: () => {
+            let index = appData.words.currentWordIndex;
+            return index;
+        },
+
+        // get the current word 
+        getCurrentWord() {
+            let currentWord = appData.words.currentWord;
+            return {
+                value: {
+                    correct: currentWord.value.correct,
+                    user: currentWord.value.user
+                }
+            }
+        },
+
+        //update current word using user input
+        updateCurrentWord: () => { },
         getLineReturn() {
             return lineReturn;
         },
+
         // only for test
         returnData() {
             console.log(appData);

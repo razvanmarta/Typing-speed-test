@@ -3,6 +3,7 @@ const UIModule = (() => {
     const DOMElements = {
         //indicators - test control
         timeLeft: document.getElementById('timeLeft'), //HTML element displaying time left
+
         //test results
         wpm: document.getElementById('wpm'),
         wpmChange: document.getElementById('wpmChange'),
@@ -10,17 +11,22 @@ const UIModule = (() => {
         cpmChange: document.getElementById('cpmChange'),
         accuracy: document.getElementById('accuracy'),
         accuracyChange: document.getElementById('accuracyChange'),
+
         //user input
         textInput: document.querySelector('#input'),
         nameInput: document.querySelector('.form-group'),
         nameField: document.getElementById('name'),
+
         //test words
         content: document.getElementById('content'),
         activeWord: '',
+
         //modal
         modal: $('#myModal'),
         download: document.getElementById('download')
     };
+
+
     const splitArray = string => {
         return string.split("");
     };
@@ -57,8 +63,13 @@ const UIModule = (() => {
         updateResults: () => { },
         fillModal: () => { },
         showModal: () => { },
+
         // user input
-        inputFocus: () => { },
+        inputFocus: () => {
+
+            DOMElements.textInput.focus();
+        },
+
         isNameEmpty: () => { },
         flagNameInput: () => { },
         spacePressed: () => { },
@@ -67,6 +78,7 @@ const UIModule = (() => {
         getTypeWord: () => { },
 
         //test words
+
         fillContent: (array, lineReturn) => {
             //['word1,', 'word2'];
             let content = array.map(splitArray);
@@ -79,23 +91,32 @@ const UIModule = (() => {
             //[['<span>','<span>w</span>', '<span>o</span>', '<span>r</span>', '<span>d</span>', '<span>1</span>', '<span>,</span>', '<span> </span>', '</span>'], ['<span>','<span>w</span>', '<span>o</span>', '<span>r</span>', '<span>d</span>', '<span>1</span>', '<span> </span>', '</span>']]
             content = content.map(joinEachWord);
             content = content.join('');
-            // console.log(content);
+            console.log(content);
             // <span><span>w</span><span>o</span><span>r</span><span>d</span><span>1</span><span>,</span><span> </span></span><span><span>w</span><span>o</span><span>r</span><span>d</span><span>2</span><span> </span></span>;
 
-            //replace the line return special code with the HTML entity (line return)
-
-            // <span>|</span>
-            // <span>&crarr;</span>
-            //            content = content.replace('<span>|</span>', '<span>&crarr;</span>');
+            //replace the line return special code with the HTML entity (line return) ----<span>|</span>----><span>&crarr;</span>----> content = content.replace('<span>|</span>', '<span>&crarr;</span>');
             //split, join
             content = content.split('<span>' + lineReturn + '</span>').join('<span>&crarr;</span>');
 
             // fill content
-
             DOMElements.content.innerHTML = content;
         },
-        formatWord: (wordObject, wordHTML) => { },
-        setActiveWord: (index) => { },
+
+
+        formatWord: wordObject => {
+            let activeWord = DOMElements.activeWord;
+
+            // highlight current word
+            activeWord.className = "activeWord";
+
+            // format individual character
+        },
+
+        setActiveWord: (index) => {
+            DOMElements.activeWord = DOMElements.content.children[index];
+        },
+
+
         deactivateCurrentWord: () => { },
         scroll: () => { }
     }
