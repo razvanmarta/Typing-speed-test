@@ -111,7 +111,26 @@ const dataModule = (() => {
                     totalTest: this.value.correct.length
                 };
         }
-        update(value) { }// update method
+        // update method: updates the word using the word typed by the user
+        update(value) {
+            // update the user input
+            this.value.user = value;
+
+            // update the words status (correct or not)
+            this.value.isCorrect = (this.value.correct === this.value.user);
+
+            // update user characters
+            this.characters.user = this.value.user.split("");
+
+            // calculate the number of correct characters
+            let nbOfCorrect = 0;
+            let charactersCallback = (currentElement, index) => {
+                nbOfCorrect += (currentElement == this.characters.user[index] ? 1 : 0)
+            }
+
+            this.characters.correct.forEach(charactersCallback);
+            this.characters.totalCorrect = nbOfCorrect;
+        }
     }
 
     //public
@@ -129,7 +148,10 @@ const dataModule = (() => {
         endTest: () => { }, //ends the test
         reduceTime: () => { },// reduces time by one sec
         timeLeft: () => { },//checks if there is time left to continue the test
-        testEnded: () => { },//check if the test has already ended
+        //check if the test has already ended
+        testEnded: () => {
+            return appData.indicators.testEnded;
+        },
         testStarted: () => { },//check if the test has started
         getTimeLeft: () => {
             return appData.indicators.timeLeft;
@@ -198,7 +220,10 @@ const dataModule = (() => {
         },
 
         //update current word using user input
-        updateCurrentWord: () => { },
+        updateCurrentWord: (value) => {
+            appData.words.currentWord.update(value);
+        },
+
         getLineReturn() {
             return lineReturn;
         },

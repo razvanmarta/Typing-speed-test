@@ -53,7 +53,11 @@ const UIModule = (() => {
 
     return {
         // get DOM Elements
-        getDOMElements: () => { },
+        getDOMElements: () => {
+            return {
+                textInput: DOMElements.textInput
+            }
+        },
         //indicators - test control
         updateTimeLeft: (x) => {
             DOMElements.timeLeft.innerHTML = x;
@@ -66,7 +70,6 @@ const UIModule = (() => {
 
         // user input
         inputFocus: () => {
-
             DOMElements.textInput.focus();
         },
 
@@ -75,7 +78,9 @@ const UIModule = (() => {
         spacePressed: () => { },
         enterPressed: () => { },
         emptyInput: () => { },
-        getTypeWord: () => { },
+        getTypeWord: () => {
+            return DOMElements.textInput.value;
+        },
 
         //test words
 
@@ -91,7 +96,7 @@ const UIModule = (() => {
             //[['<span>','<span>w</span>', '<span>o</span>', '<span>r</span>', '<span>d</span>', '<span>1</span>', '<span>,</span>', '<span> </span>', '</span>'], ['<span>','<span>w</span>', '<span>o</span>', '<span>r</span>', '<span>d</span>', '<span>1</span>', '<span> </span>', '</span>']]
             content = content.map(joinEachWord);
             content = content.join('');
-            console.log(content);
+            // console.log(content);
             // <span><span>w</span><span>o</span><span>r</span><span>d</span><span>1</span><span>,</span><span> </span></span><span><span>w</span><span>o</span><span>r</span><span>d</span><span>2</span><span> </span></span>;
 
             //replace the line return special code with the HTML entity (line return) ----<span>|</span>----><span>&crarr;</span>----> content = content.replace('<span>|</span>', '<span>&crarr;</span>');
