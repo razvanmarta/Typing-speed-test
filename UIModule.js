@@ -26,27 +26,35 @@ const UIModule = (() => {
         download: document.getElementById('download')
     };
 
-
     const splitArray = string => {
         return string.split("");
     };
+
     const addSpace = array => {
         array.push(" ");
         return array;
     };
+
     const addSpanTags = array => {
         return array.map(currentCharacter => {
             return `<span>${currentCharacter}</span>`;
         })
     };
+
     const addWordSpanTags = array => {
         array.push("</span>");
         array.unshift("<span>");
         return array;
-
     };
+
     const joinEachWord = array => {
         return array.join("")
+    };
+
+    let userValue;
+
+    const returnCharClass = (correctCharacter, index) => {
+        return (index < userValue.length) ? (correctCharacter === userValue[index] ? 'correctCharacter' : 'wrongCharacter') : '0'
     };
 
 
@@ -107,14 +115,31 @@ const UIModule = (() => {
             DOMElements.content.innerHTML = content;
         },
 
-
         formatWord: wordObject => {
             let activeWord = DOMElements.activeWord;
 
             // highlight current word
             activeWord.className = "activeWord";
 
-            // format individual character
+            // format individual characters
+            let correctValue = wordObject.value.correct;
+            userValue = wordObject.value.user;
+
+            //  correct value vs user value
+
+            let classes = Array.prototype.map.call(correctValue, returnCharClass);
+
+            // HTML collection
+            let characters = activeWord.children;
+
+            // add classes to children
+            for (let i = 0; i < characters.length; i++) {
+                characters[i].removeAttribute('class');
+                characters[i].className = classes[i];
+            }
+
+
+
         },
 
         setActiveWord: (index) => {

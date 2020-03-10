@@ -19,6 +19,8 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
             dataM.updateCurrentWord(typedWord);
 
             // format active word 
+            let currentWord = dataM.getCurrentWord();
+            userM.formatWord(currentWord);
 
             // check if the user pressed space or enter
             if (userM.spacePressed() || userM.enterPressed()) {

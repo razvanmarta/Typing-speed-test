@@ -88,3 +88,11 @@ body {
 background-color: aqua;
 border-radius: 5px;
 }
+
+.correctCharacter{
+    color: blue;
+}
+
+.wrongCharacter {
+    color: rgb(214, 39, 39);
+}
