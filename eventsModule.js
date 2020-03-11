@@ -2,6 +2,7 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
     const addEventListeners = function () {
         // character typing event listener
         userM.getDOMElements().textInput.addEventListener("input", (event) => {
+            // console.log(event);
             // if the test ended, do nothing
             if (dataM.testEnded()) {
                 return;
@@ -23,23 +24,35 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
             userM.formatWord(currentWord);
 
             // check if the user pressed space or enter
-            if (userM.spacePressed() || userM.enterPressed()) {
+            if (userM.spacePressed(event) || userM.enterPressed()) {
+                // console.log("space pressed")
                 // empty text input
+                userM.emptyInput();
 
                 // deactivate current word
+                userM.deactivateCurrentWord();
 
                 // move to a new word: data module
+                dataM.moveToNewWord();
 
                 // set active word: UI module 
+                let index = dataM.getCurrentWordIndex();
+                userM.setActiveWord(index);
 
                 // format the active word: UI module
+                let currentWord = dataM.getCurrentWord();
+                userM.formatWord(currentWord);
 
                 // scroll word into the middle view
+                userM.scroll();
             }
         })
         // click on download button event listener
         // click on restart button event listener
     };
+
+    // scroll active word into middle view on window resize
+    window.addEventListener("resize", userM.scroll);
 
 
     // public

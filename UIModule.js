@@ -73,7 +73,9 @@ const UIModule = (() => {
         },
         //results
         updateResults: () => { },
+
         fillModal: () => { },
+
         showModal: () => { },
 
         // user input
@@ -82,10 +84,19 @@ const UIModule = (() => {
         },
 
         isNameEmpty: () => { },
+
         flagNameInput: () => { },
-        spacePressed: () => { },
+
+        spacePressed: (event) => {
+            return event.data == " ";
+        },
+
         enterPressed: () => { },
-        emptyInput: () => { },
+
+        emptyInput: () => {
+            DOMElements.textInput.value = "";
+        },
+
         getTypeWord: () => {
             return DOMElements.textInput.value;
         },
@@ -147,8 +158,19 @@ const UIModule = (() => {
         },
 
 
-        deactivateCurrentWord: () => { },
-        scroll: () => { }
+        deactivateCurrentWord: () => {
+            DOMElements.activeWord.removeAttribute('class')
+        },
+
+        scroll: () => {
+            let activeWord = DOMElements.activeWord;
+            let top1 = activeWord.offsetTop;
+            let top2 = DOMElements.content.offsetTop;
+            let diff = top1 - top2;
+            // scroll the content of the content box
+            DOMElements.content.scrollTop = diff - 40;
+
+        }
     }
 })();
 
