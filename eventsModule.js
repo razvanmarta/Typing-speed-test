@@ -1,7 +1,32 @@
 const eventsModule = ((dataM, userM, certificateM, wordsM) => {
     const addEventListeners = function () {
+
+        // enter click event
+
+        userM.getDOMElements().textInput.addEventListener("keydown", event => {
+            console.log(event);
+
+            // if the test ended, do nothing
+            if (dataM.testEnded()) {
+                return;
+            }
+
+            // check if the user press enter
+            let key = event.keyCode;
+            if (key == 13) {
+                userM.getDOMElements().textInput.value += dataM.getLineReturn() + " ";
+
+                // create a new "input" event
+                let inputEvent = new Event('input');
+
+                //dispatch it
+                userM.getDOMElements().textInput.dispatchEvent(inputEvent);
+
+            }
+        })
+
         // character typing event listener
-        userM.getDOMElements().textInput.addEventListener("input", (event) => {
+        userM.getDOMElements().textInput.addEventListener("input", event => {
             // console.log(event);
             // if the test ended, do nothing
             if (dataM.testEnded()) {
@@ -24,7 +49,7 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
             userM.formatWord(currentWord);
 
             // check if the user pressed space or enter
-            if (userM.spacePressed(event) || userM.enterPressed()) {
+            if (userM.spacePressed(event) || userM.enterPressed(dataM.getLineReturn())) {
                 // console.log("space pressed")
                 // empty text input
                 userM.emptyInput();

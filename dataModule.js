@@ -46,7 +46,7 @@ const dataModule = (() => {
         return arrayOfStrings.map(
             function (currentWord) {
                 let randomPunctuation;
-                const punctuation = [lineReturn, "?", "!", "!", ",", ".", ".", ".", ".", ".", " ", " ", " ", " ", " ", " ", " "];
+                const punctuation = [lineReturn, "?", "!", "!", ",", ".", ".", ".", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "];
                 let index = Math.floor(Math.random() * punctuation.length);
                 randomPunctuation = punctuation[index];
 

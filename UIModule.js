@@ -87,17 +87,20 @@ const UIModule = (() => {
 
         flagNameInput: () => { },
 
-        spacePressed: (event) => {
+        spacePressed: event => {
             return event.data == " ";
         },
 
-        enterPressed: () => { },
+        enterPressed: lineReturn => {
+            return DOMElements.textInput.value.includes(lineReturn + ' ');
+        },
 
         emptyInput: () => {
             DOMElements.textInput.value = "";
         },
 
         getTypeWord: () => {
+            console.log(DOMElements.textInput.value)
             return DOMElements.textInput.value;
         },
 
