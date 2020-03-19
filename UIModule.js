@@ -57,6 +57,35 @@ const UIModule = (() => {
         return (index < userValue.length) ? (correctCharacter === userValue[index] ? 'correctCharacter' : 'wrongCharacter') : '0'
     };
 
+    const updateChange = (value, changeElement) => {
+
+        //determine the class to add to the change element and html content to insert
+        let classToAdd, html;
+        [classToAdd, html] = (value >= 0) ? ['scoreUp', '+' + value] : ['scoreDown', value];
+
+        //add % to the percentage change
+        if (changeElement === DOMElements.accuracyChange) {
+            html += '%';
+        }
+
+        //update the change element
+        changeElement.innerHTML = html;
+
+        //style the change element
+        changeElement.removeAttribute('class');
+        changeElement.className = classToAdd;
+
+        //fade element
+        fadeElement(changeElement);
+    };
+
+    const fadeElement = function (element) {
+        element.style.opacity = 1;
+        setTimeout(function () {
+            element.style.opacity = 0.8;
+        }, 100);
+    };
+
 
 
     return {
@@ -67,12 +96,23 @@ const UIModule = (() => {
             }
         },
         //indicators - test control
-        updateTimeLeft: (x) => {
+        updateTimeLeft: x => {
             DOMElements.timeLeft.innerHTML = x;
 
         },
         //results
-        updateResults: () => { },
+        updateResults: results => {
+            //update wpm
+            DOMElements.wpm.innerHTML = results.wpm;
+            //update cpm
+            DOMElements.cpm.innerHTML = results.cpm;
+            //update accuracy
+            DOMElements.accuracy.innerHTML = results.accuracy + '%';
+            //update changes
+            updateChange(results.wpmChange, DOMElements.wpmChange);
+            updateChange(results.cpmChange, DOMElements.cpmChange);
+            updateChange(results.accuracyChange, DOMElements.accuracyChange);
+        },
 
         fillModal: () => { },
 
@@ -100,11 +140,11 @@ const UIModule = (() => {
         },
 
         getTypeWord: () => {
-            console.log(DOMElements.textInput.value)
+            // console.log(DOMElements.textInput.value)
             return DOMElements.textInput.value;
         },
 
-        //test words
+        //test words 
 
         fillContent: (array, lineReturn) => {
             //['word1,', 'word2'];

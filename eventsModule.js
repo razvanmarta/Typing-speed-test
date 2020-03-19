@@ -2,9 +2,8 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
     const addEventListeners = function () {
 
         // enter click event
-
         userM.getDOMElements().textInput.addEventListener("keydown", event => {
-            console.log(event);
+            // console.log(event);
 
             // if the test ended, do nothing
             if (dataM.testEnded()) {
@@ -35,7 +34,58 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
 
             // if the test has not started yet, start the test and countdown
             if (!dataM.testStarted()) {
-                // start the test
+                // start the test: dataM
+                dataM.startTest();
+
+                // start counter
+                const b = setInterval(() => {
+                    // calculate the results: dataM
+
+                    let results = {};
+
+                    //    update upm, upmChange
+                    [results.wpm, results.wpmChange] =
+                        dataM.calculateWpm();
+
+                    //    update cpm, cpmChange
+                    [results.cpm, results.cpmChange] =
+                        dataM.calculateCpm();
+
+                    //    update accuracy, accuracyChange
+                    [results.accuracy, results.accuracyChange] =
+                        dataM.calculateAccuracy();
+
+
+                    dataM.returnData();
+
+
+                    // update/show results userM
+                    userM.updateResults(results);
+
+                    //     // update time left
+                    //     //   YES
+
+
+
+
+                    //     // NO
+
+                    //     //end the test: dataM
+
+                    //     // fill modal
+
+                    //     // show modal
+
+                    if (dataM.timeLeft()) {
+                        //    reduce time by one sec: dataM
+                        let timeLeft = dataM.reduceTime();
+
+                        //    update time remaining in userM
+                        userM.updateTimeLeft(timeLeft);
+
+                    }
+
+                }, 1000);
             }
 
             // get typed word: UI module

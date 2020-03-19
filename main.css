@@ -1,98 +1,104 @@
-body {
-    font-family:'Quattrocento Sans', sans-serif;
-    background:url(./images/aurora.jpg) no-repeat center ;
-    background-attachment: fixed;
-    background-size: cover;
-    color: white;
-} 
-
-.meas_container {
-    background-color: rgba(236,34, 202, .5);
-}
-
-.row {
-    font-size: 30px;
-}
-
-.title {
-    font-size: 14px;
-}
-
-.typingIcon {
-    height: 50px;
-}
-
-#content {
-    height: 120px;
-    background-color: rgba(255,255,255, 0.2);
-    margin: 10px auto;
-    font-size: 30px;
-    overflow: hidden;
-    padding: 0 5px;
-    line-height: 40px;
-}
-
-.change {
-    height: 25px;
-    font-size: 16px;
-}
-
-#input {
-    width: 100%;
-    background-color: rgba(239,37,188, 0.3);
-    font-size: 30px;
-    padding: 10px;
-    color: rgb(0, 252, 201);
-}
-
-.keyboard {
-    min-height: 200px;
-    max-height: 300px;
-    background: url(./images/keyboard.jpeg) no-repeat center center;
-    background-size: contain;
-    margin-top: 10px;
-}
-
-.restart {
-    margin-top: 20px;
-    opacity: 0.7;
-}
-
-.btn-primary {
-    background: rgba(236,34, 202, .5);
-}
-.btn-primary:focus, .btn-primary:active, .btn-primary:hover {
-    background: rgba(236,34, 202, .9);
-}
-
-.scoreDown, .scoreUp {
-   border-radius: 5px;
-   padding: 5px;
-   font-size: 12px;
-}
-
-.scoreDown {
-   background: rgba(250, 4, 16, 0.726);
-}
-
-.scoreUp {
-   background: rgb(0, 255, 179);
-   color: black;
-}
-
-.modal {
-    color: black;
-}
-
-.activeWord{
-background-color: aqua;
-border-radius: 5px;
-}
-
-.correctCharacter{
-    color: blue;
-}
-
-.wrongCharacter {
-    color: rgb(214, 39, 39);
-}
+/*body element*/
+body{
+    /*    font-family: 'Quattrocento Sans', sans-serif;*/
+        background: url("images/aurora.jpg") no-repeat center center;
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+    }
+    
+    .meas_container{
+        background-color: rgba(236, 34, 202, 0.5);
+    }
+    
+    .row{
+        font-size: 30px;
+    }
+    
+    .title{
+        font-size: 14px;
+    }
+    
+    .typingIcon{
+        height: 50px;
+    }
+    
+    #content{
+        height: 120px;
+        background-color: rgba(255,255,255,0.2);
+        margin: 10px auto;
+        font-size: 30px;
+        overflow: hidden;
+        padding: 0 5px;
+        line-height: 40px
+    }
+    
+    .change{
+        height: 25px;
+        font-size: 16px;
+    }
+    
+    #input{
+        background-color: rgba(239, 37, 188, 0.3);
+        width: 100%;
+        font-size: 30px;
+        padding: 10px;
+        color: rgb(1, 226, 182)
+    }
+    
+    .keyboard{
+        min-height: 200px;
+        max-height: 300px;
+        background: url("images/keyboard.jpeg") no-repeat center center;
+        background-size: contain;
+        margin-top: 10px;
+    }
+    
+    .restart{
+        margin-top: 20px;
+        opacity: 0.5
+    }
+    
+    .btn-primary{
+        background: rgba(236, 34, 202, 0.5)
+    }
+    
+    .btn-primary:focus,.btn-primary:active,.btn-primary:hover{
+        background: rgba(236, 34, 202, 0.8)
+    }
+    
+    .scoreDown, .scoreUp{
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 12px;
+    }
+    
+    .scoreDown{
+        background: mediumvioletred
+    }
+    
+    .scoreUp{
+        background: greenyellow;
+        color: black
+    }
+    
+    .modal{
+        color: black;
+    }
+    
+    .activeWord{
+        background-color: greenyellow;
+        border-radius: 5px;
+    }
+    
+    .correctCharacter{
+        color: mediumblue;
+    }
+    
+    .wrongCharacter{
+        color: mediumvioletred;
+    }
+    
+    .result{
+        font-size: 20px;
+    }

@@ -39,7 +39,6 @@ const dataModule = (() => {
         })
     };
 
-
     // addRandomPunctuation function
 
     const addRandomPunctuation = function (arrayOfStrings) {
@@ -54,9 +53,6 @@ const dataModule = (() => {
             }
         )
     }
-
-
-
 
     const appData = {
         indicators: {
@@ -144,24 +140,93 @@ const dataModule = (() => {
         initializeTimeLeft: () => {
             appData.indicators.timeLeft = appData.indicators.totalTestTime;
         },
-        startTest: () => { }, //start the test
-        endTest: () => { }, //ends the test
-        reduceTime: () => { },// reduces time by one sec
-        timeLeft: () => { },//checks if there is time left to continue the test
+
+        //start the test
+        startTest: () => {
+            return appData.indicators.testStarted = true;
+        },
+
+        //ends the test
+        endTest: () => { },
+
+        // reduces time by one sec
+        reduceTime: () => {
+            appData.indicators.timeLeft--;
+            return appData.indicators.timeLeft;
+        },
+
+        //checks if there is time left to continue the test
+        timeLeft: () => {
+            return appData.indicators.timeLeft !== 0;
+        },
+
         //check if the test has already ended
         testEnded: () => {
             return appData.indicators.testEnded;
         },
-        testStarted: () => { },//check if the test has started
+
+        //check if the test has started
+        testStarted: () => {
+            return appData.indicators.testStarted;
+        },
+
         getTimeLeft: () => {
             return appData.indicators.timeLeft;
         },
 
         // results
 
-        calculateWpm: () => { }, //calculates wpm and wpmChange and updates them in appData 
-        calculateCpm: () => { }, //calculates cpm and cpmChange and updates them in appData 
-        calculateAccuracy: () => { }, //calculates accuracy and accuracyChange and updates them in appData
+        // calculates wpm and wpmChange and updates them in appData
+        calculateWpm: () => {
+            let wpmOld = appData.results.wpm;
+            let numOfCorrectWords = appData.results.numOfCorrectWords;
+            if (appData.indicators.timeLeft != appData.indicators.totalTestTime) {
+                appData.results.wpm = Math.round(60 * numOfCorrectWords / (appData.indicators.totalTestTime - appData.indicators.timeLeft));
+            } else {
+                appData.results.wpm = 0
+            }
+            appData.results.wpmChange = appData.results.wpm - wpmOld;
+
+            return [appData.results.wpm, appData.results.wpmChange];
+        },
+
+        //calculates cpm and cpmChange and updates them in appData 
+        calculateCpm: () => {
+            let cpmOld = appData.results.cpm;
+            let numOfCorrectCharacters = appData.results.numOfCorrectCharacters;
+            if (appData.indicators.timeLeft != appData.indicators.totalTestTime) {
+                appData.results.cpm = Math.round(60 * numOfCorrectCharacters / (appData.indicators.totalTestTime - appData.indicators.timeLeft));
+            } else {
+                appData.results.cpm = 0;
+            }
+            appData.results.cpmChange = appData.results.cpm - cpmOld;
+
+            return [appData.results.cpm, appData.results.cpmChange];
+
+        },
+
+        //calculates accuracy and accuracyChange and updates them in appData
+        calculateAccuracy: function () {
+            var accuracyOld = appData.results.accuracy;
+            var numOfCorrectCharacters = appData.results.numOfCorrectCharacters;
+            var numOfTestCharacters = appData.results.numOfTestCharacters;
+
+            if (appData.indicators.timeLeft != appData.indicators.totalTestTime) {
+                if (numOfTestCharacters != 0) {
+                    appData.results.accuracy = Math.round(100 * numOfCorrectCharacters / numOfTestCharacters);
+                } else {
+                    appData.results.accuracy = 0
+                }
+            } else {
+                appData.results.accuracy = 0;
+            }
+            appData.results.accuracyChange = appData.results.accuracy - accuracyOld;
+            // console.log(appData.results.accuracyChange)
+
+            return [appData.results.accuracy, appData.results.accuracyChange];
+
+        },
+
 
         // TEST WORDS
 
@@ -189,12 +254,16 @@ const dataModule = (() => {
         // update the current word (appData.words.currentWord) by creating a new instance of the WORD class
         // update numOfCorrectWords, numOfCorrectCharacter and numOfTestCharacters
         moveToNewWord: () => {
+            //update the number of correct words 
             if (appData.words.currentWordIndex > -1) {
-                //update the number of correct words 
-
+                if (appData.words.currentWord.value.isCorrect == true) {
+                    appData.results.numOfCorrectWords++;
+                }
                 //update the number of correct characters
+                appData.results.numOfCorrectCharacters += appData.words.currentWord.characters.totalCorrect;
 
                 // update number of test characters
+                appData.results.numOfTestCharacters += appData.words.currentWord.characters.totalTest;
             }
             appData.words.currentWordIndex++;
             const currentIndex = appData.words.currentWordIndex;
