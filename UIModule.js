@@ -92,7 +92,8 @@ const UIModule = (() => {
         // get DOM Elements
         getDOMElements: () => {
             return {
-                textInput: DOMElements.textInput
+                textInput: DOMElements.textInput,
+                download: DOMElements.download
             }
         },
         //indicators - test control
@@ -114,18 +115,56 @@ const UIModule = (() => {
             updateChange(results.accuracyChange, DOMElements.accuracyChange);
         },
 
-        fillModal: () => { },
+        fillModal: wpm => {
+            let results;
+            if (wpm < 40) {
+                results = {
+                    type: 'turtle',
+                    image: 'turtle.jpg',
+                    level: 'Beginner'
+                };
+            } else if (wpm < 70) {
+                results = {
+                    type: 'horse',
+                    image: 'horse.jpg',
+                    level: 'Average'
+                };
+            } else {
+                results = {
+                    type: 'puma',
+                    image: 'puma.jpg',
+                    level: 'Expert'
+                };
+            }
+            let html = '<div class="result"><p>You are a %type%!</p><p>You type at a speed of %wpm% words per minute!</p><img width="300" height="200" src="images/%image%" class= "rounded-circle" alt=%alt%></div>';
+            html = html.replace('%type%', results.type);
+            html = html.replace('%wpm%', wpm);
+            html = html.replace('%image%', results.image);
+            html = html.replace('%alt%', results.type);
 
-        showModal: () => { },
+            //insert html before form-group
+            DOMElements.nameInput.insertAdjacentHTML('beforebegin', html);
+
+            //store level in download button
+            DOMElements.download.setAttribute('level', results.level);
+        },
+
+        showModal: () => {
+            DOMElements.modal.modal('show');
+        },
 
         // user input
         inputFocus: () => {
             DOMElements.textInput.focus();
         },
 
-        isNameEmpty: () => { },
+        isNameEmpty: () => {
+            return DOMElements.nameField.value === '';
+        },
 
-        flagNameInput: () => { },
+        flagNameInput: () => {
+            DOMElements.nameField.style.borderColor = 'red';
+        },
 
         spacePressed: event => {
             return event.data == " ";

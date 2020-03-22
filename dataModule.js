@@ -147,7 +147,9 @@ const dataModule = (() => {
         },
 
         //ends the test
-        endTest: () => { },
+        endTest: () => {
+            appData.indicators.testEnded = true;
+        },
 
         // reduces time by one sec
         reduceTime: () => {
@@ -278,7 +280,7 @@ const dataModule = (() => {
         },
 
         // get the current word 
-        getCurrentWord() {
+        getCurrentWord: () => {
             let currentWord = appData.words.currentWord;
             return {
                 value: {
@@ -289,16 +291,23 @@ const dataModule = (() => {
         },
 
         //update current word using user input
-        updateCurrentWord: (value) => {
+        updateCurrentWord: value => {
             appData.words.currentWord.update(value);
         },
 
-        getLineReturn() {
+        getCertificateData: () => {
+            return {
+                wpm: appData.indicators.wpm,
+                accuracy: appData.indicators.accuracy
+            };
+        },
+
+        getLineReturn: () => {
             return lineReturn;
         },
 
         // only for test
-        returnData() {
+        returnData: () => {
             console.log(appData);
         }
     }

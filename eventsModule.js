@@ -62,27 +62,25 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
                     // update/show results userM
                     userM.updateResults(results);
 
-                    //     // update time left
-                    //     //   YES
+                    // NO
 
-
-
-
-                    //     // NO
-
-                    //     //end the test: dataM
-
-                    //     // fill modal
-
-                    //     // show modal
-
+                    // check if we have time left
                     if (dataM.timeLeft()) {
                         //    reduce time by one sec: dataM
                         let timeLeft = dataM.reduceTime();
 
                         //    update time remaining in userM
                         userM.updateTimeLeft(timeLeft);
+                    } else {
+                        //end the test: dataM
+                        clearInterval(b);
+                        dataM.endTest();
 
+                        // fill modal
+                        userM.fillModal(results.wpm);
+
+                        // show modal
+                        userM.showModal();
                     }
 
                 }, 1000);
@@ -123,7 +121,14 @@ const eventsModule = ((dataM, userM, certificateM, wordsM) => {
             }
         })
         // click on download button event listener
-        // click on restart button event listener
+        userM.getDOMElements().download.addEventListener('click', () => {
+            if (userM.isNameEmpty()) {
+                userM.flagNameInput();
+            } else {
+                let certificateData = dataM.getCertificateData();
+                certificateM.generateCertificate(certificateData);
+            }
+        })
     };
 
     // scroll active word into middle view on window resize
