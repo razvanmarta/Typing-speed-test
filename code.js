@@ -1,3 +1,3 @@
 // console.log("start");
-eventsModule.init(5, 2);
+eventsModule.init(30, 2);
 dataModule.returnData();

@@ -297,8 +297,8 @@ const dataModule = (() => {
 
         getCertificateData: () => {
             return {
-                wpm: appData.indicators.wpm,
-                accuracy: appData.indicators.accuracy
+                wpm: appData.results.wpm,
+                accuracy: appData.results.accuracy
             };
         },
 
